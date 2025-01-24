@@ -1,3 +1,5 @@
+# Copyright (c) 2025, Termius Corporation.
+
 - name: Create a group 
   uri:
     url: "{{ api_url }}/v1/group/{{ group_id 

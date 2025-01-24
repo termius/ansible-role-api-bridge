@@ -1,3 +1,5 @@
+# Copyright (c) 2025, Termius Corporation.
+
 - name: Create a host
   uri:
     url: "{{ api_url }}/v1/host/{{ host_id

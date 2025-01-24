@@ -1,3 +1,5 @@
+# Copyright (c) 2025, Termius Corporation.
+
 # The address of a host where where API Bridge Docker container is running. Setup API Bridge here: https://account.termius.com/bridges
 api_url: "http://localhost:8080"
 

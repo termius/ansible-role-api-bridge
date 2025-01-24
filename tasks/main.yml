@@ -1,3 +1,5 @@
+# Copyright (c) 2025, Termius Corporation.
+
 - name: Check is SSH defined
   meta: end_host
   when: not (ansible_host is defined and (hostvars[inventory_hostname].ansible_connection | default('ssh')) == 'ssh')
