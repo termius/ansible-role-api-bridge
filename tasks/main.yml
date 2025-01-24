@@ -1,0 +1,61 @@
+- name: Check is SSH defined
+  meta: end_host
+  when: not (ansible_host is defined and (hostvars[inventory_hostname].ansible_connection | default('ssh')) == 'ssh')
+  tags:
+  - create
+  - update
+
+# Create group
+- name: Create group via API
+  import_tasks: create_termius_group.ansible.yml
+  when: use_groups_instead_of_tags | bool
+  tags:
+  - create
+  - update
+
+# Create host
+- name: Prepare host data
+  set_fact:
+    host_body: "{{ {
+      'vault': vault,
+      'address': ansible_host | default(inventory_hostname), 
+      'label': inventory_hostname,
+      'ssh':  { 'port': ansible_port | default(22) | int,
+                 'credentials': { 
+                    'username': ansible_user | default(''),
+                    'password': host_password | default('')
+                    }
+              } 
+            }
+      | combine(
+        {'group': group_names[0]} if use_groups_instead_of_tags | bool and group_names else 
+        {'tags': group_names} if group_names else {}
+      )}}"
+  tags:
+  - create
+  - update
+
+- name: Create host via API
+  import_tasks: create_termius_host.ansible.yml
+  tags:
+  - create
+  - update
+
+# Update host
+- name: Update host if exitst
+  block:
+  - import_tasks: delete_termius_host.ansible.yml
+  - import_tasks: create_termius_host.ansible.yml
+    vars:
+      valid_status_codes: [200]
+  when: ('update' in ansible_run_tags) and (host_api_result is defined and host_api_result.status == 400)
+  tags: 
+  - update
+  - never
+
+# Next part only reDelete host
+- name: Delete host if exists
+  import_tasks: delete_termius_host.ansible.yml
+  tags:
+  - delete
+  - never

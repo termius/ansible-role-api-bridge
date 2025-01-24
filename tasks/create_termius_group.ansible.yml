@@ -1,0 +1,15 @@
+- name: Create a group 
+  uri:
+    url: "{{ api_url }}/v1/group/{{ group_id 
+                                | default(hostvars[inventory_hostname][group_id_key]
+                                | default(group_name)) }}/"
+    method: POST
+    body_format: json
+    body:
+      vault: "{{ vault }}"
+      label: "{{ group_name }}"
+    status_code: [ 200, 400 ]
+  vars:
+    group_name: "{{ group_names[0] }}"
+  ignore_errors: yes
+  delegate_to: localhost

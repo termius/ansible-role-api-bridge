@@ -1,0 +1,13 @@
+- name: Create a host
+  uri:
+    url: "{{ api_url }}/v1/host/{{ host_id
+                                | default(hostvars[inventory_hostname][host_id_key]
+                                | default(inventory_hostname)) }}/"
+    method: POST
+    body_format: json
+    body: "{{ host_body }}"
+    status_code: "{{ valid_status_codes | default([200, 400]) }}"
+  ignore_errors: yes
+  register: host_api_result
+  delegate_to: localhost
+  

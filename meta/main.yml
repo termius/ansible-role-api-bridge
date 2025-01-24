@@ -1,0 +1,20 @@
+galaxy_info:
+  role_name: termius
+  namespace: termius
+  description: Automate importing hosts and groups from Ansible Inventory into Termius vault.
+  license: MIT
+  min_ansible_version: '2.8'
+  github_branch: main
+  galaxy_tags:
+    - SSH
+    - import
+    - server
+    - inventory
+    - API
+    - AWS
+    - azure
+    - oracle
+    - gcp
+    - netbox
+    - networking
+dependencies: []

@@ -1,0 +1,20 @@
+# The address of a host where where API Bridge Docker container is running. Setup API Bridge here: https://account.termius.com/bridges
+api_url: "http://localhost:8080"
+
+# The vault where you would like to add hosts and groups.
+vault: "Team"
+
+# A password in plain text that will be attached to a host in Termius.
+host_password: ""
+
+# Ansible Inventory allows specifying several groups for one host, creating a one-to-many connection between hosts and groups. 
+# Termius supports only one-to-one connection between hosts and groups. 
+# By default, when you use the Termius role, it will create one group per host and assign a host to this group.
+# By setting use_groups_instead_of_tags: false your hosts will be organized with tags instead of groups in Termius.
+use_groups_instead_of_tags: true
+
+# Termius role uses API Bridge, which requires every entity to have an external ID.  By default, ansible_host is used. 
+# Use host_id_key and group_id_key to fetch a custom external ID from your Ansible inventory. 
+# For example, with the Digital Ocean dynamic inventory, set host_id_key=do_id to use the Droplet's ID as an external ID for Termius entities.
+host_id_key: null
+group_id_key: null
