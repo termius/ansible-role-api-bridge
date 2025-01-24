@@ -1,10 +1,12 @@
+# Termius API Bridge Ansible Role
+
 Termius Ansible role allows you to automate the import of hosts and groups from your Ansible Inventory.
 
-# Setup
+## Setup
 
 Termius Ansible role requires the API Bridge to import data into your vault. [Set up Bridge API](https://account.termius.com/bridges) first.
 
-## Installation
+### Installation
 
 Install the Termius role from Ansible Galaxy on your Ansible server:
 
@@ -26,7 +28,7 @@ Create  a new playbook `termius_import.yml` to import, update, and delete your h
 
 Provide an `api_url`  for a machine where you deployed Termius API Bridge. By default `api_url` is http://localhost:8080.
 
-# Role variables
+## Role variables
 
 These variables provide additional configuration for a Termius role. They should be specified in the `vars` section of your playbook.
 
@@ -39,7 +41,7 @@ These variables provide additional configuration for a Termius role. They should
 | host_id_key<br>_(string)_ |  | `termius` role uses API Bridge, which requires every entity to have a external ID. By default, `ansible_host` is used.<br>Specify a key which will be used for fetching a custom external id for a host from inventory instead of ansible_host. |
 | group_id_key<br>_(string)_ |  | `termius` role uses API Bridge, which requires every entity to have a external ID. By default, `group_name` is used.<br>Specify a key which will be used for fetching a external id for a group from inventory instead of `group_name` |
 
-# How does this role work?
+## How does this role work?
 
 The role gathers all the necessary details from your Ansible inventory to create hosts and groups in Termius. If an Ansible host belongs to a group, this role uses the first item from the `group_names` variable to create a group in Termius. If your Ansible hosts are in multiple groups, set `use_groups_instead_of_tags` to `false` in the Termius role; this forces the role to create tags for hosts in Termius instead of groups.
 
@@ -47,7 +49,7 @@ For each host, the role collects `ansible_host`, `inventory_hostname`, `ansible_
 
 Termius role uses API Bridge to push data into your Termius vault.
 
-# Import Hosts 
+## Import Hosts 
 
 Run the playbook to import all your hosts from inventory:
 
@@ -61,7 +63,7 @@ If you want to import only a specific group or host, use the `-l` argument and s
 ansible-paybook termius_import.yml -l webservers
 ```
 
-# Update Hosts 
+## Update Hosts 
 
 Specify `update` tag when you run `termius_import.yml` playbook. Please note that the update operation overrides all changes you've made to the host in Termius.
 
@@ -69,7 +71,7 @@ Specify `update` tag when you run `termius_import.yml` playbook. Please note tha
 ansible-playbook termius_import.yml --tags update
 ```
 
-# Delete Hosts 
+## Delete Hosts 
 
 There are two ways to delete hosts from your Termius vault you can run  `termius_import.yml` with `delete` tag using the following command:
 
@@ -89,11 +91,11 @@ Alternatively, you can create a separate playbook that will delete a task; it co
         tasks_from: delete_termius_host.ansible.yml
 ```
 
-# Example Playbooks
+## Example Playbooks
 
 Below are some sample playbooks to assist you with using the Termius Ansible role.
 
-## Add hosts automatically
+### Add hosts automatically
 
 The following example updates a password on a target host and then imports this host with a new password into the DevOps vault in Termius.
 
@@ -118,7 +120,7 @@ The following example updates a password on a target host and then imports this 
         host_password: "MySecurePlaintextPassword"
 ```
 
-## Delete hosts automatically 
+### Delete hosts automatically 
 
 The following example deletes a docker container from a host and then deletes a host from Termius.
 
