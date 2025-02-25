@@ -54,13 +54,13 @@ Termius role uses API Bridge to push data into your Termius vault.
 Run the playbook to import all your hosts from inventory:
 
 ```
-ansible-paybook termius_import.yml
+ansible-playbook termius_import.yml
 ```
 
 If you want to import only a specific group or host, use the `-l` argument and specify a group.
 
 ```
-ansible-paybook termius_import.yml -l webservers
+ansible-playbook termius_import.yml -l webservers
 ```
 
 ## Update Hosts 
