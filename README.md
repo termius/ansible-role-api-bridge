@@ -87,7 +87,7 @@ Alternatively, you can create a separate playbook that will delete a task; it co
   gather_facts: false
   tasks:
     - include_role:
-        name: termius
+        name: termius.termius
         tasks_from: delete_termius_host.ansible.yml
 ```
 
@@ -114,7 +114,7 @@ The following example updates a password on a target host and then imports this 
   hosts: all
   gather_facts: false
   roles: 
-    - role: termius
+    - role: termius.termius
       vars:
         vault: DevOps 
         host_password: "MySecurePlaintextPassword"
@@ -140,6 +140,6 @@ The following example deletes a docker container from a host and then deletes a 
   gather_facts: false
   tasks:
     - include_role:
-        name: termius
+        name: termius.termius
         tasks_from: delete_termius_host.ansible.yml
 ```
