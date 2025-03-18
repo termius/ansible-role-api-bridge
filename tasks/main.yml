@@ -22,6 +22,7 @@
       'vault': vault,
       'address': ansible_host | default(inventory_hostname), 
       'label': inventory_hostname,
+      'entity_source': 'Ansible',
       'ssh':  { 'port': ansible_port | default(22) | int,
                  'credentials': { 
                     'username': ansible_user | default(''),
@@ -51,7 +52,7 @@
     vars:
       valid_status_codes: [200]
   when: ('update' in ansible_run_tags) and (host_api_result is defined and host_api_result.status == 400)
-  tags: 
+  tags:
   - update
   - never
 
